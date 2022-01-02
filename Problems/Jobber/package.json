@@ -1,0 +1,14 @@
+{
+  "name": "jobber",
+  "version": "1.0.0",
+  "description": "\"Jobber Assignment - Arvind Dhindsa\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Arvind Dhindsa",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^27.3.1"
+  }
+}

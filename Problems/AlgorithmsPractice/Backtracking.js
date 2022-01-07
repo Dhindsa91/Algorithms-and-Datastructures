@@ -54,12 +54,9 @@ function combinations(arr, i, k, temp, result){
         let current = arr[index];
         temp.push(current);
         combinations(arr, index + 1, k, temp, result);
-        // console.log(temp);
-        // console.log(i);
         temp.pop();
     }
 }
-
 
 function KCombinations(arr, k){
     let result = [];
@@ -77,6 +74,7 @@ const input = [3, 5, -2];
 const result3 = KCombinations(input, 2);
 console.log(result3);
 
-const input2 = [1, 2, 3, 1000];
+const input2 = [1, 2, 3];
 const result4 = KCombinations(input2, 3);
 console.log(result4);
+

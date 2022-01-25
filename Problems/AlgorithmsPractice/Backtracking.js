@@ -42,6 +42,7 @@ console.log(result2);
 
 
 function combinations(arr, i, k, temp, result){
+    
     if(temp.length <= k && temp.length > 0){
         result.push(Object.assign([],temp));
     }

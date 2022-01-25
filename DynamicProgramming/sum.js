@@ -26,16 +26,19 @@ function backtrack(arr, first, temp, result, target){
     return result;
  }
 
- let result = canSum(7, new Array(1000).fill(9));
+ let result = canSum(7, new Array(5).fill(9));
  console.log(result);
 
 
- function canSum2(target, arr){
+ function canSum2(target, arr, memo){
+     console.log(target)
      if(target === 0) return true;
+     if(target < 0) return false;
 
      for(let num of arr){
         const remainder = target - num;
-        if(canSum(remainder, arr) === true){
+        // console.log(remainder)
+        if(canSum2(remainder, arr) === true){
             return true;
         }; 
      }
@@ -43,5 +46,5 @@ function backtrack(arr, first, temp, result, target){
      return false;
  }
 
-result = canSum2(7, [5,3,4,7]);
+result = canSum2(7, [5, 3, 4, 7]);
 console.log(result);

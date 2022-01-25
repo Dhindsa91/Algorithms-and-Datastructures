@@ -14,7 +14,7 @@ function fibonacci(n, memo = {}){
 
 console.time();
 
-const result = fibonacci(50);
+const result = fibonacci(7);
 console.timeEnd();
 console.log(result)
 

@@ -44,3 +44,31 @@ const _mergeArrays = (a, b) => {
   const result = mergeSort([7,3,9,1]);
   console.log(result);
 
+// A JavaScript Program to detect cycle in a graph
+
+let V;
+let adj=[];
+function Graph(v)
+{
+    V=v;
+    for (let i = 0; i < V; i++)
+        adj.push([]);
+}
+
+
+
+
+// Driver code
+Graph(4);
+addEdge(0, 1);
+addEdge(0, 2);
+addEdge(1, 2);
+addEdge(2, 0);
+addEdge(2, 3);
+
+
+if(isCyclic())
+    document.write("Graph contains cycle");
+else
+    document.write("Graph doesn't "
+                   + "contain cycle");

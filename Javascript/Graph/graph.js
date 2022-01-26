@@ -1,41 +1,41 @@
 class Graph {
   vertex = null;
   graph = {
-    0: [],
-    1: [],
   };
   constructor(vertex) {
     this.vertex = vertex;
+    for(let i = 0; i < vertex; i++){
+      this.graph[i] = [];
+    }
   }
 
-
-    /**
-   * 
+  /**
+   *
    * TopologicalSort/Cycle Detection
-   * 
-   * 
+   *
+   *
    */
-  isCyclic2(){
+  isCyclic2() {
     let visited = new Array(Object.keys(this.graph).length + 1).fill(false);
     let backtrack = new Array(Object.keys(this.graph).length + 1).fill(false);
     let stack = [];
 
     let result = false;
-    for(let key in this.graph){
+    for (let key in this.graph) {
       result = this.isCyclicUtil2(key, visited, backtrack, stack);
     }
 
-    console.log(stack)
+    console.log(stack);
     return result;
   }
 
-  isCyclicUtil2(node, visited, backtrack, stack){
+  isCyclicUtil2(node, visited, backtrack, stack) {
     // console.log(node, backtrack[node], visited[node])
-    if(backtrack[node]) {
-      console.log(node, visited)
-      return true
+    if (backtrack[node]) {
+      console.log(node, visited);
+      return true;
     }
-    if(visited[node]) return false;
+    if (visited[node]) return false;
 
     visited[node] = true;
     backtrack[node] = true;
@@ -43,9 +43,9 @@ class Graph {
     let children = this.graph[node] || [];
 
     let r = false;
-    for(let n of children){
-        r = this.isCyclicUtil2(n, visited, backtrack, stack);
-        if(r) return true;
+    for (let n of children) {
+      r = this.isCyclicUtil2(n, visited, backtrack, stack);
+      if (r) return true;
     }
 
     backtrack[node] = false;
@@ -115,37 +115,48 @@ class Graph {
     stack.push(vertex);
   }
 
-  // isCyclic() {
-  //   let visited = new Array(V).fill(false);
-  //   let recStack = new Array(V).fill(false);
+  Kahns() {
+    console.log("KAHNS ---- GRAPH", this.graph)
+    let indegree = new Array(this.vertex).fill(0);
 
-  //   for (let i = 0; i < V; i++)
-  //     if (isCyclicUtil(i, visited, recStack)) return true;
+    for (let i = 0; i < this.vertex; i++) {
+      let children = this.graph[i] || [];
+      for (let node = 0; node < children.length; node++) {
+        indegree[children[node]]++;
+      }
+    }
+    console.log("INDEGREE", indegree)
 
-  //   return false;
-  // }
+    let q = [];
+    for (let i = 0; i < this.vertex; i++) {
+      if (indegree[i] == 0) q.push(i);
+    }
 
-  // isCyclicUtil(i, visited, recStack) {
-  //   if (recStack[i]) return true;
-  //   if (visited[i]) return false;
+    console.log("NO EDGES COMING INTO", q);
 
-  //   visited[i] = true;
-  //   recStack[i] = true;
+    let cnt = 0;
 
-  //   let children = adj[i];
+    let topOrder = [];
+    while (q.length != 0) {
+      let current = q.shift();
+      topOrder.push(current);
 
-  //   for (let c = 0; c < children.length; c++)
-  //     if (isCyclicUtil(children, visited, recStack)) return true;
+      const l = this.graph[current].length || []
+      for (let i = 0; i < l; i++) {
+        if (--indegree[this.graph[current][i]] == 0) q.push(this.graph[current][i]);
+      }
+      cnt++;
+    }
 
-  //   recStack[i] = false;
-  //   return false;
-  // }
+    console.log("IS IT TOPOLOGICAL", cnt, this.vertex);
+    console.log("RESULT", topOrder);
+  }
 
-  postOrderTraversal(node){
-    if(node === null){
+  postOrderTraversal(node) {
+    if (node === null) {
       return;
     }
-    for(let el of this.graph[node] || []){
+    for (let el of this.graph[node] || []) {
       this.postOrderTraversal(el);
       console.log(el);
     }
@@ -173,6 +184,7 @@ g.BFS(1);
 console.log("+++++++++++++++++++++++++++++++++++++");
 g.DFS(1);
 console.log("+++++++++++++++++++++++++++++++++++++");
+g.Kahns();
 g.topologicalSort();
 console.log("+++++++++++++++++++++++++++++++++++++");
 
@@ -181,7 +193,6 @@ g2.addEdge(0, 1);
 g2.addEdge(0, 2);
 g2.addEdge(1, 2);
 g2.addEdge(2, 3);
-
 
 console.log(g2);
 console.log("+++++++++++++++++++++++++++++++++++++");
@@ -193,3 +204,17 @@ const isCyclic = g2.isCyclic2();
 console.log(isCyclic);
 console.log("+++++++++++++++++++++++++++++++++++++");
 g2.postOrderTraversal(0);
+
+
+console.log("+++++++++++++++++++++++++++++++++++++");
+const g3 = new Graph(6);
+g3.addEdge(5, 2);
+g3.addEdge(5, 0);
+g3.addEdge(2, 3);
+g3.addEdge(3, 1);
+g3.addEdge(4, 0);
+g3.addEdge(4, 1);
+g3.Kahns(0);
+g3.topologicalSort();
+
+

@@ -3,8 +3,8 @@ import java.util.*;
 public class Whiteboard {
 
     int V;
-    ArrayList<ArrayList<Integer> > adj;
-    
+    ArrayList<ArrayList<Integer>> adj;
+
     void topologicalSort() {
         Stack<Integer> stack = new Stack<Integer>();
 
@@ -22,7 +22,7 @@ public class Whiteboard {
     }
 
     void topologicalSortUtil(int v, boolean visited[], Stack<Integer> stack) {
-   
+
         visited[v] = true;
         Integer i;
 
@@ -35,5 +35,28 @@ public class Whiteboard {
 
         stack.push(new Integer(v));
     }
+
+    // private void minHeapify(int position) {
+
+    //     // check whether the given node is non-leaf and greater than its right and left
+    //     // child
+    //     if (!checkLeaf(position)) {
+    //         if (heapData[position] > heapData[getLeftChildPosition(position)]
+    //                 || heapData[position] > heapData[getRightChildPosition(position)]) {
+
+    //             // swap with left child and then heapify the left child
+    //             if (heapData[getLeftChildPosition(position)] < heapData[getRightChildPosition(position)]) {
+    //                 swap(position, getLeftChildPosition(position));
+    //                 minHeapify(getLeftChildPosition(position));
+    //             }
+
+    //             // Swap with the right child and heapify the right child
+    //             else {
+    //                 swap(position, getRightChildPosition(position));
+    //                 minHeapify(getRightChildPosition(position));
+    //             }
+    //         }
+    //     }
+    // }
 
 }

@@ -135,3 +135,37 @@ function palinUtil(str, left, right){
 
 let pali = palin("racecar");
 console.log("PALINDROME", pali);
+
+
+
+
+function b(){
+  let visited = new Array(5).fill(false);
+  let backtrack = new Array(5).fill(false);
+  let stack = [];
+
+  for(let i = 0; i < 5; i ++){
+    if(!visited[i]) butil(i, visited, backtrack, stack);
+  }
+}
+
+
+function butil(i, visited, backtrack, stack){
+
+  if(backtrack[i]) return true;
+  if(visited[i]) return false;
+
+  backtrack[i] = true;
+  visited[i] = true;
+
+  
+  let children = this.graph[i] || [];
+
+  for(let k = 0; k < children.length; k++){
+    if(!visited[k]) let result = butil(i, visited, backtrack, stack);
+    if(result) return true;
+  }
+
+  backtrack[i] = false;
+  stack.pop(i);
+}

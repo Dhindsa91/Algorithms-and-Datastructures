@@ -1,5 +1,5 @@
 function permutations(arr, i, result){
-    if(i > 0) {
+    if(i === arr.length) {
         result.push(Object.assign([], arr));
         return
     }
@@ -7,7 +7,7 @@ function permutations(arr, i, result){
     for(let index = i; index < arr.length; index++){
         // console.log(index, i);
         swap(arr, index, i)
-        permutations(arr, index + 1, result);
+        permutations(arr, i + 1, result);
         swap(arr, i, index)
     }
 }

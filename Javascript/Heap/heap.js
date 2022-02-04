@@ -18,7 +18,7 @@ class Heap {
     }
 
     getParentPosition(pos){
-        return Math.floor((pos - 1)/2);
+        return (pos - 2)/2;
     }
 
     getLeftChild(pos){
@@ -58,6 +58,15 @@ class Heap {
         }
     }
 
+    removeRoot(){
+        //remove root;
+                //swap with last element added
+        this.heap[0] = this.heap[this.heap.length - 1];
+
+        //compare to children and bubble down
+        this.minifyHeap(0);
+    }
+
     printHeap(){
         console.log(this.heap);
     }
@@ -68,8 +77,11 @@ h.insertNode(99);
 h.insertNode(9);
 h.insertNode(10);
 h.insertNode(11);
+h.insertNode(1);
 h.insertNode(12);
 h.insertNode(13);
 h.insertNode(9.5);
 h.minifyHeap(0);
+h.printHeap();
+h.removeRoot();
 h.printHeap();

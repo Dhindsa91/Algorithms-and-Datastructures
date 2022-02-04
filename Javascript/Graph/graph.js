@@ -2,6 +2,7 @@ class Graph {
   vertex = null;
   graph = {
   };
+
   constructor(vertex) {
     this.vertex = vertex;
     for(let i = 0; i < vertex; i++){
@@ -22,17 +23,18 @@ class Graph {
 
     let result = false;
     for (let key in this.graph) {
-      result = this.isCyclicUtil2(key, visited, backtrack, stack);
+      if(!visited[key]) result = this.isCyclicUtil2(key, visited, backtrack, stack);
     }
 
-    console.log(stack);
+    console.log(stack.reverse());
+    console.log(result);
     return result;
   }
 
   isCyclicUtil2(node, visited, backtrack, stack) {
     // console.log(node, backtrack[node], visited[node])
     if (backtrack[node]) {
-      console.log(node, visited);
+      console.log("Backtracking Node", [node]);
       return true;
     }
     if (visited[node]) return false;
@@ -42,9 +44,8 @@ class Graph {
 
     let children = this.graph[node] || [];
 
-    let r = false;
     for (let n of children) {
-      r = this.isCyclicUtil2(n, visited, backtrack, stack);
+      let r = this.isCyclicUtil2(n, visited, backtrack, stack);
       if (r) return true;
     }
 
@@ -141,9 +142,10 @@ class Graph {
       let current = q.shift();
       topOrder.push(current);
 
-      const l = this.graph[current].length || []
-      for (let i = 0; i < l; i++) {
-        if (--indegree[this.graph[current][i]] == 0) q.push(this.graph[current][i]);
+      for (let i = 0; i < this.graph[current].length; i++) {
+        let child = this.graph[current][i];
+        indegree[child]--;
+        if (indegree[child] == 0) q.push(this.graph[current][i]);
       }
       cnt++;
     }
@@ -164,57 +166,65 @@ class Graph {
   }
 }
 
-const g = new Graph(5);
-g.addEdge(0, 1);
-g.addEdge(0, 2);
-g.addEdge(1, 3);
-g.addEdge(2, 3);
-// g.addEdge(3, 6);
-// g.addEdge(4, 7);
-// g.addEdge(5, 2);
-// g.addEdge(5, 0);
-// g.addEdge(4, 0);
-// g.addEdge(4, 1);
+// const g = new Graph(5);
+// g.addEdge(0, 1);
+// g.addEdge(0, 2);
+// g.addEdge(1, 3);
 // g.addEdge(2, 3);
-// g.addEdge(3, 1);
+// // g.addEdge(3, 6);
+// // g.addEdge(4, 7);
+// // g.addEdge(5, 2);
+// // g.addEdge(5, 0);
+// // g.addEdge(4, 0);
+// // g.addEdge(4, 1);
+// // g.addEdge(2, 3);
+// // g.addEdge(3, 1);
 
-console.log(g);
+// console.log(g);
 
-g.BFS(1);
-console.log("+++++++++++++++++++++++++++++++++++++");
-g.DFS(1);
-console.log("+++++++++++++++++++++++++++++++++++++");
-g.Kahns();
-g.topologicalSort();
-console.log("+++++++++++++++++++++++++++++++++++++");
+// g.BFS(1);
+// console.log("+++++++++++++++++++++++++++++++++++++");
+// g.DFS(1);
+// console.log("+++++++++++++++++++++++++++++++++++++");
+// g.Kahns();
+// g.topologicalSort();
+// console.log("+++++++++++++++++++++++++++++++++++++");
 
-const g2 = new Graph(5);
-g2.addEdge(0, 1);
-g2.addEdge(0, 2);
-g2.addEdge(1, 2);
-g2.addEdge(2, 3);
+// const g2 = new Graph(5);
+// g2.addEdge(0, 1);
+// g2.addEdge(0, 2);
+// g2.addEdge(1, 2);
+// g2.addEdge(2, 3);
 
-console.log(g2);
-console.log("+++++++++++++++++++++++++++++++++++++");
-let s = [];
-g2.DFS(0, s);
-console.log(s);
-console.log("+++++++++++++++++++++++++++++++++++++");
-const isCyclic = g2.isCyclic2();
-console.log(isCyclic);
-console.log("+++++++++++++++++++++++++++++++++++++");
-g2.postOrderTraversal(0);
+// console.log(g2);
+// console.log("+++++++++++++++++++++++++++++++++++++");
+// let s = [];
+// g2.DFS(0, s);
+// console.log(s);
+// console.log("+++++++++++++++++++++++++++++++++++++");
+// const isCyclic = g2.isCyclic2();
+// console.log(isCyclic);
+// console.log("+++++++++++++++++++++++++++++++++++++");
+// g2.postOrderTraversal(0);
 
 
-console.log("+++++++++++++++++++++++++++++++++++++");
-const g3 = new Graph(6);
-g3.addEdge(5, 2);
-g3.addEdge(5, 0);
-g3.addEdge(2, 3);
-g3.addEdge(3, 1);
-g3.addEdge(4, 0);
-g3.addEdge(4, 1);
-g3.Kahns(0);
-g3.topologicalSort();
+// console.log("+++++++++++++++++++++++++++++++++++++");
+// const g3 = new Graph(6);
+// g3.addEdge(5, 2);
+// g3.addEdge(5, 0);
+// g3.addEdge(2, 3);
+// g3.addEdge(3, 1);
+// g3.addEdge(4, 0);
+// g3.addEdge(4, 1);
+// g3.Kahns(0);
+// g3.topologicalSort();
 
+const newG = new Graph(5);
+newG.addEdge(0,1);
+newG.addEdge(1,2);
+newG.addEdge(2,3);
+newG.addEdge(3,4);
+console.log("Graph", newG.graph);
+newG.isCyclic2();
+newG.topologicalSort();
 

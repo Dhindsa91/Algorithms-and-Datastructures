@@ -127,15 +127,15 @@ class Tree {
         }
     }
 
-    getSumOfPaths(node, sum = 0, results){
+    getSumOfPaths(node, sum = 0){
         // console.log(node);
         if(node.left === null && node.right === null) {
             console.log(sum + node.val);
             return;
         } 
 
-        if(node.left) this.getSumOfPaths(node.left, sum + node.val, results);
-        if(node.right) this.getSumOfPaths(node.right, sum + node.val, results);
+        if(node.left) this.getSumOfPaths(node.left, sum + node.val);
+        if(node.right) this.getSumOfPaths(node.right, sum + node.val);
     }
 }
 
